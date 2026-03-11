@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Academy 🦸 - Learn & Play!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #FFD700;
+    --red: #E8271A;
+    --blue: #1B4FDB;
+    --dark: #0a0a1a;
+    --card-bg: #12122a;
+    --purple: #7B2FBE;
+    --green: #00C851;
+    --white: #ffffff;
+    --silver: #C0C0C0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* STARS BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, #1a0a3a 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, #0a1a3a 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, #1a0a0a 0%, transparent 50%),
+                var(--dark);
+    z-index: 0;
+  }
+
+  .stars {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, white, transparent),
+      radial-gradient(1px 1px at 30% 70%, white, transparent),
+      radial-gradient(1px 1px at 50% 30%, white, transparent),
+      radial-gradient(1px 1px at 70% 85%, white, transparent),
+      radial-gradient(1px 1px at 90% 45%, white, transparent),
+      radial-gradient(2px 2px at 20% 55%, rgba(255,215,0,0.6), transparent),
+      radial-gradient(2px 2px at 60% 10%, rgba(255,215,0,0.6), transparent),
+      radial-gradient(1px 1px at 80% 65%, white, transparent),
+      radial-gradient(1px 1px at 40% 90%, white, transparent),
+      radial-gradient(1px 1px at 15% 40%, white, transparent);
+  }
+
+  .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    position: relative;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), #ff6b00);
+    color: var(--dark);
+    font-family: 'Bangers', cursive;
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(255,215,0,0.5);
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+    50% { box-shadow: 0 0 40px rgba(255,215,0,0.9); }
+  }
+
+  .header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(42px, 8vw, 72px);
+    letter-spacing: 4px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold) 0%, #fff 40%, var(--gold) 60%, var(--red) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(255,215,0,0.4));
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .hero-icons {
+    font-size: 30px;
+    margin: 10px 0;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* NAME INPUT */
+  .name-section {
+    background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(27,79,219,0.1));
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+  }
+
+  .name-section label {
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .name-input-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  .name-input {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,215,0,0.4);
+    border-radius: 12px;
+    padding: 10px 18px;
+    color: white;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    outline: none;
+    width: 200px;
+    transition: all 0.3s;
+  }
+
+  .name-input:focus { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+  .name-input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .name-btn {
+    background: linear-gradient(135deg, var(--gold), #ff6b00);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 22px;
+    color: var(--dark);
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .name-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,215,0,0.5); }
+
+  .hero-name-display {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  /* STARS SCORE */
+  .score-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .score-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 12px;
+    padding: 8px 16px;
+    text-align: center;
+  }
+
+  .score-item .score-num {
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .score-item .score-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 12px 22px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(232,39,26,0.2));
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 5px 25px rgba(255,215,0,0.25);
+    transform: translateY(-3px);
+  }
+
+  /* PANELS */
+  .panel { display: none; animation: fadeIn 0.4s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CARD */
+  .card {
+    background: linear-gradient(135deg, rgba(18,18,42,0.95), rgba(25,25,55,0.95));
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 24px;
+    padding: 28px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red), var(--blue), var(--gold));
+    background-size: 200%;
+    animation: shimmer-line 3s linear infinite;
+  }
+
+  @keyframes shimmer-line {
+    from { background-position: 0%; }
+    to { background-position: 200%; }
+  }
+
+  .card-title {
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  /* ENGLISH SECTION */
+  .word-display {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(27,79,219,0.15), rgba(123,47,190,0.15));
+    border-radius: 20px;
+    border: 1px solid rgba(27,79,219,0.3);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .word-big {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(48px, 10vw, 80px);
+    letter-spacing: 6px;
+    background: linear-gradient(135deg, #fff, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .word-emoji { font-size: 50px; margin: 10px 0; animation: bounce 1s ease-in-out infinite; }
+
+  @keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .word-meaning {
+    font-size: 20px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .word-sentence {
+    font-size: 15px;
+    color: rgba(255,215,0,0.8);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .word-letters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+  }
+
+  .letter-box {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(232,39,26,0.1));
+    border: 2px solid rgba(255,215,0,0.4);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    color: var(--gold);
+    animation: pop-in 0.3s ease backwards;
+  }
+
+  @keyframes pop-in {
+    from { transform: scale(0) rotate(-10deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* SPELLING INPUT */
+  .spelling-section { text-align: center; }
+
+  .spelling-prompt {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .answer-input {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 14px;
+    padding: 14px 20px;
+    color: white;
+    font-size: 22px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 4px;
+    outline: none;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .answer-input:focus { border-color: var(--gold); box-shadow: 0 0 25px rgba(255,215,0,0.2); }
+
+  /* BUTTONS */
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+
+  .btn {
+    padding: 13px 28px;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.2);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .btn:hover::after { opacity: 1; }
+  .btn:hover { transform: translateY(-3px) scale(1.03); }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-gold { background: linear-gradient(135deg, var(--gold), #ff8c00); color: var(--dark); box-shadow: 0 5px 20px rgba(255,215,0,0.3); }
+  .btn-red { background: linear-gradient(135deg, var(--red), #ff4500); color: white; box-shadow: 0 5px 20px rgba(232,39,26,0.3); }
+  .btn-blue { background: linear-gradient(135deg, var(--blue), #4a90e2); color: white; box-shadow: 0 5px 20px rgba(27,79,219,0.3); }
+  .btn-green { background: linear-gradient(135deg, var(--green), #00a040); color: white; box-shadow: 0 5px 20px rgba(0,200,81,0.3); }
+
+  /* FEEDBACK */
+  .feedback-box {
+    text-align: center;
+    padding: 18px;
+    border-radius: 16px;
+    font-family: 'Bangers', cursive;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    display: none;
+    animation: pop-in 0.3s ease;
+  }
+
+  .feedback-box.correct { background: rgba(0,200,81,0.2); border: 2px solid var(--green); color: var(--green); display: block; }
+  .feedback-box.wrong { background: rgba(232,39,26,0.2); border: 2px solid var(--red); color: var(--red); display: block; }
+
+  /* MATH SECTION */
+  .math-problem {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(232,39,26,0.12), rgba(255,215,0,0.08));
+    border-radius: 20px;
+    border: 1px solid rgba(232,39,26,0.3);
+    margin-bottom: 20px;
+  }
+
+  .math-car-icon { font-size: 45px; margin-bottom: 10px; animation: drive 4s linear infinite; }
+
+  @keyframes drive {
+    0%, 100% { transform: translateX(-5px) rotate(-2deg); }
+    50% { transform: translateX(5px) rotate(2deg); }
+  }
+
+  .math-eq {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(40px, 8vw, 64px);
+    color: white;
+    letter-spacing: 6px;
+    margin: 10px 0;
+  }
+
+  .math-eq span { color: var(--gold); }
+
+  .math-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .option-btn {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 18px;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .option-btn:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.04); }
+  .option-btn.correct-ans { background: rgba(0,200,81,0.2); border-color: var(--green); color: var(--green); }
+  .option-btn.wrong-ans { background: rgba(232,39,26,0.2); border-color: var(--red); color: var(--red); }
+
+  /* TIMES TABLES */
+  .table-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .table-btn {
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .table-btn:hover, .table-btn.selected { background: rgba(255,215,0,0.2); border-color: var(--gold); color: var(--gold); transform: scale(1.1); }
+
+  .table-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .table-row {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,215,0,0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    transition: all 0.3s;
+    animation: slide-in 0.3s ease backwards;
+  }
+
+  .table-row:hover { background: rgba(255,215,0,0.1); transform: translateX(5px); }
+
+  .table-row .eq { color: rgba(255,255,255,0.7); font-size: 16px; }
+  .table-row .ans { color: var(--gold); font-size: 20px; }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* FACT SECTION */
+  .fact-card {
+    background: linear-gradient(135deg, rgba(123,47,190,0.2), rgba(27,79,219,0.2));
+    border: 1px solid rgba(123,47,190,0.4);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .fact-card::after {
+    content: '✨';
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.06;
+    bottom: -10px; right: -10px;
+  }
+
+  .fact-category {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+
+  .fact-emoji { font-size: 55px; margin-bottom: 15px; display: block; animation: spin-float 4s ease-in-out infinite; }
+
+  @keyframes spin-float {
+    0%, 100% { transform: rotate(-5deg) scale(1); }
+    50% { transform: rotate(5deg) scale(1.1); }
+  }
+
+  .fact-text {
+    font-size: clamp(16px, 3vw, 20px);
+    color: white;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .fact-text strong { color: var(--gold); }
+
+  .fact-wow {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: rgba(255,215,0,0.7);
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    margin-top: 15px;
+  }
+
+  .mini-fact {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .mini-fact:hover { border-color: var(--purple); background: rgba(123,47,190,0.1); transform: translateY(-3px); }
+  .mini-fact .mf-emoji { font-size: 28px; flex-shrink: 0; }
+  .mini-fact .mf-text { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 600; line-height: 1.5; }
+  .mini-fact .mf-text strong { color: var(--gold); }
+
+  /* WORD LIST GRID */
+  .words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .word-chip {
+    background: rgba(27,79,219,0.15);
+    border: 1px solid rgba(27,79,219,0.3);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .word-chip:hover, .word-chip.selected { border-color: var(--gold); background: rgba(255,215,0,0.1); transform: scale(1.05); }
+  .word-chip .wc-emoji { font-size: 24px; display: block; margin-bottom: 5px; }
+  .word-chip .wc-word { font-family: 'Bangers', cursive; font-size: 16px; color: white; letter-spacing: 1px; }
+  .word-chip .wc-meaning { font-size: 11px; color: rgba(255,215,0,0.7); font-weight: 700; margin-top: 3px; }
+
+  /* CELEBRATION */
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 999; display: none; }
+  .confetti.show { display: block; }
+
+  .conf-piece {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    animation: fall 2.5s ease-in forwards;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    margin: 12px 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  /* LEVEL BADGE */
+  .level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,69,0,0.1));
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 10px;
+    padding: 5px 12px;
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .section-header h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 26px;
+    color: white;
+    letter-spacing: 2px;
+  }
+
+  .section-header .badge {
+    background: linear-gradient(135deg, var(--red), var(--gold));
+    color: var(--dark);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 500px) {
+    .math-options { grid-template-columns: repeat(2, 1fr); }
+    .tab-btn { padding: 10px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="confetti" id="confetti"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">⚡ Hero Academy ⚡</div>
+    <div class="hero-icons">🦸‍♂️ 🚗 ⭐ 🔬 🦸‍♀️</div>
+    <h1>HERO ACADEMY</h1>
+    <p>Learn Like a Super Hero! 🌟</p>
+  </div>
+
+  <!-- NAME SECTION -->
+  <div class="name-section">
+    <label id="name-label">👋 What's Your Super Hero Name?</label>
+    <div class="name-input-row">
+      <input type="text" class="name-input" id="nameInput" placeholder="Type your name..." maxlength="15">
+      <button class="name-btn" onclick="setName()">⚡ GO!</button>
+    </div>
+    <div class="hero-name-display" id="heroNameDisplay" style="display:none;margin-top:8px;"></div>
+  </div>
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-num" id="starsCount">0</div>
+      <div class="score-label">⭐ STARS</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="correctCount">0</div>
+      <div class="score-label">✅ CORRECT</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="levelDisplay">1</div>
+      <div class="score-label">🏆 LEVEL</div>
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPanel('english')">📚 English</button>
+    <button class="tab-btn" onclick="showPanel('math')">🔢 Math</button>
+    <button class="tab-btn" onclick="showPanel('tables')">✖️ Tables</button>
+    <button class="tab-btn" onclick="showPanel('facts')">🔬 Fun Facts</button>
+  </div>
+
+  <!-- ENGLISH PANEL -->
+  <div class="panel active" id="panel-english">
+    <div class="card">
+      <div class="card-title">📚 Word of the Day!</div>
+      <div class="card-subtitle">Learn new words like a superhero!</div>
+
+      <div class="word-display" id="wordDisplay">
+        <div class="word-emoji" id="wordEmoji">🦁</div>
+        <div class="word-big" id="currentWord">BRAVE</div>
+        <div class="word-letters" id="wordLetters"></div>
+        <div class="word-meaning" id="wordMeaning">Not scared of anything!</div>
+        <div class="word-sentence" id="wordSentence">🦸 "Iron Man is very brave!"</div>
+      </div>
+
+      <div class="section-header" style="margin-top:20px;">
+        <h2>Spell It! ✏️</h2>
+        <span class="badge">CHALLENGE</span>
+      </div>
+      <div class="spelling-section">
+        <div class="spelling-prompt" id="spellingPrompt">Can you spell the word above? 👆</div>
+        <input type="text" class="answer-input" id="spellingInput" placeholder="TYPE HERE..." maxlength="15" oninput="this.value=this.value.toUpperCase()">
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="checkSpelling()">⚡ CHECK!</button>
+          <button class="btn btn-blue" onclick="nextWord()">➡️ NEXT WORD</button>
+        </div>
+        <div class="feedback-box" id="spellingFeedback"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌟 Word Collection</div>
+      <div class="card-subtitle">Tap a word to learn it!</div>
+      <div class="words-grid" id="wordsGrid"></div>
+    </div>
+  </div>
+
+  <!-- MATH PANEL -->
+  <div class="panel" id="panel-math">
+    <div class="card">
+      <div class="card-title">🚗 Race to the Answer!</div>
+      <div class="card-subtitle">Solve the problem to win the race!</div>
+
+      <div class="math-problem" id="mathProblem">
+        <div class="math-car-icon">🏎️</div>
+        <div class="level-badge" id="mathLevel">⚡ Level 1 - Easy Peasy!</div>
+        <div class="math-eq" id="mathEq">
+          <span id="num1">5</span> + <span id="op">+</span> <span id="num2">3</span> = <span>?</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-fill" id="mathProgress" style="width:0%"></div>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:700;" id="mathProgressText">0 / 10 solved</div>
+      </div>
+
+      <div class="math-options" id="mathOptions"></div>
+      <div class="feedback-box" id="mathFeedback"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏆 Choose Your Challenge!</div>
+      <div class="card-subtitle">Pick what you want to practice!</div>
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="setMathMode('add')">➕ Addition</button>
+        <button class="btn btn-red" onclick="setMathMode('sub')">➖ Subtraction</button>
+        <button class="btn btn-blue" onclick="setMathMode('mix')">🌀 Mix!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLES PANEL -->
+  <div class="panel" id="panel-tables">
+    <div class="card">
+      <div class="card-title">✖️ Times Tables!</div>
+      <div class="card-subtitle">Pick a number to practice!</div>
+
+      <div class="table-selector" id="tableSelector"></div>
+
+      <div class="section-header">
+        <h2 id="tableTitle">Table of 2</h2>
+      </div>
+      <div class="table-grid" id="tableGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏎️ Tables Quiz!</div>
+      <div class="card-subtitle">Test yourself with a quick quiz!</div>
+      <div class="math-problem">
+        <div class="math-car-icon">🚗</div>
+        <div class="math-eq" id="tableQuizEq">
+          <span id="tq1">3</span> × <span id="tq2">4</span> = <span>?</span>
+        </div>
+      </div>
+      <div class="math-options" id="tableQuizOptions"></div>
+      <div class="feedback-box" id="tableQuizFeedback"></div>
+    </div>
+  </div>
+
+  <!-- FACTS PANEL -->
+  <div class="panel" id="panel-facts">
+    <div class="card">
+      <div class="card-title">🔬 WOW! Fun Facts!</div>
+      <div class="card-subtitle">Amazing things about our world!</div>
+
+      <div class="fact-card" id="dailyFact">
+        <div class="fact-category" id="factCategory">🌍 SCIENCE</div>
+        <span class="fact-emoji" id="factEmoji">🌍</span>
+        <div class="fact-text" id="factText">The Earth goes around the Sun in <strong>365 days</strong> — that's why we have a birthday every year!</div>
+        <div class="fact-wow">WOW! 🤯 MIND BLOWN!</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="nextFact()">🎲 NEW FACT!</button>
+        <button class="btn btn-purple" style="background:linear-gradient(135deg,#7B2FBE,#4a00e0);color:white;box-shadow:0 5px 20px rgba(123,47,190,0.3);" onclick="randomFact()">⚡ SURPRISE ME!</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌟 More Cool Facts!</div>
+      <div class="card-subtitle">Click any fact to read it big!</div>
+      <div class="facts-grid" id="factsGrid"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ====== DATA ======
+const words = [
+  { word: "BRAVE", emoji: "🦁", meaning: "Not scared of anything!", sentence: "🦸 Iron Man is very brave!", category: "Feelings" },
+  { word: "FAST", emoji: "🏎️", meaning: "Moving very quickly!", sentence: "🚗 The Lamborghini is super fast!", category: "Speed" },
+  { word: "STRONG", emoji: "💪", meaning: "Having a lot of power!", sentence: "🦸 Thor is incredibly strong!", category: "Power" },
+  { word: "SMART", emoji: "🧠", meaning: "Knowing a lot of things!", sentence: "🦸 Tony Stark is very smart!", category: "Mind" },
+  { word: "KIND", emoji: "💛", meaning: "Being nice to everyone!", sentence: "🦸 Captain America is always kind!", sentence: "🦸 Captain America is always kind!", category: "Heart" },
+  { word: "HUGE", emoji: "🐘", meaning: "Very very big!", sentence: "🌊 The ocean is huge!", category: "Size" },
+  { word: "SHINY", emoji: "✨", meaning: "Reflecting bright light!", sentence: "🚗 The Ferrari looks so shiny!", category: "Look" },
+  { word: "JUMP", emoji: "🐸", meaning: "To leap up high!", sentence: "🦸 Spider-Man can jump very high!", category: "Move" },
+  { word: "FLY", emoji: "🦅", meaning: "Moving through the air!", sentence: "🦸 Iron Man can fly anywhere!", category: "Move" },
+  { word: "GLOW", emoji: "💡", meaning: "Giving off soft light!", sentence: "⭐ Stars glow in the night sky!", category: "Light" },
+  { word: "ZOOM", emoji: "💨", meaning: "Moving super fast!", sentence: "🏎️ The race car went zoom!", category: "Speed" },
+  { word: "LUCKY", emoji: "🍀", meaning: "Good things happen to you!", sentence: "🍀 I feel lucky today!", category: "Feelings" },
+  { word: "WILD", emoji: "🐯", meaning: "Free and exciting!", sentence: "🌿 Tigers are wild animals!", category: "Nature" },
+  { word: "COOL", emoji: "😎", meaning: "Very awesome and great!", sentence: "😎 That car looks so cool!", category: "Feelings" },
+  { word: "ROAR", emoji: "🦁", meaning: "A very loud big sound!", sentence: "🦁 The lion lets out a big roar!", category: "Sound" },
+  { word: "SPARK", emoji: "⚡", meaning: "A tiny flash of light!", sentence: "⚡ Thor's hammer makes sparks!", category: "Light" },
+  { word: "HERO", emoji: "🦸", meaning: "Someone who helps others!", sentence: "🦸 Every hero saves the day!", category: "Power" },
+  { word: "RACE", emoji: "🏁", meaning: "A contest of speed!", sentence: "🏎️ Let's have a car race!", category: "Speed" },
+];
+
+const facts = [
+  { category: "🌍 EARTH", emoji: "🌍", text: "The Earth is <strong>4.5 BILLION years old</strong>! That's older than anything you can imagine!", },
+  { category: "🐋 ANIMALS", emoji: "🐋", text: "A blue whale's heart is as <strong>big as a car</strong>! It's the biggest animal that ever lived!", },
+  { category: "🌙 SPACE", emoji: "🌙", text: "The Moon is <strong>384,000 km away</strong> from Earth. It would take 9 years to drive there by car!", },
+  { category: "⚡ SCIENCE", emoji: "⚡", text: "Lightning is <strong>5 times hotter than the Sun's surface</strong>! That's why Thor is so powerful!", },
+  { category: "🦋 NATURE", emoji: "🦋", text: "A butterfly <strong>tastes with its feet</strong>! It knows if food is yummy just by standing on it!", },
+  { category: "🧠 BRAIN", emoji: "🧠", text: "Your brain makes <strong>70,000 thoughts every day</strong>! That's like being Tony Stark's computer!", },
+  { category: "🌊 OCEAN", emoji: "🌊", text: "The ocean is so deep that <strong>Mount Everest would fit inside</strong> it with room to spare!", },
+  { category: "🦖 DINOS", emoji: "🦖", text: "T-Rex and humans are <strong>separated by 65 million years</strong>! They never met each other at all!", },
+  { category: "🌳 TREES", emoji: "🌳", text: "Trees can <strong>talk to each other</strong> underground through their roots! Like a secret internet!", },
+  { category: "🚀 SPACE", emoji: "🚀", text: "There are more stars in the universe than <strong>grains of sand on all Earth's beaches</strong> combined!", },
+  { category: "🐝 BEES", emoji: "🐝", text: "A bee visits <strong>2000 flowers a day</strong> to make just one spoon of honey. Bees are heroes!", },
+  { category: "❄️ ICE", emoji: "❄️", text: "Every single snowflake has a completely <strong>unique shape</strong> — no two are ever the same!", },
+  { category: "🎵 SOUND", emoji: "🎵", text: "Sound <strong>cannot travel in space</strong>! That means rocket launches are silent in outer space!", },
+  { category: "🐬 DOLPHINS", emoji: "🐬", text: "Dolphins have <strong>names for each other</strong>! They call their friends using special whistles!", },
+  { category: "🌈 COLORS", emoji: "🌈", text: "Mantis shrimp can see <strong>16 types of colors</strong>! Humans can only see 3. Imagine that world!", },
+];
+
+// ====== STATE ======
+let state = {
+  stars: 0, correct: 0, level: 1,
+  currentWordIndex: 0,
+  mathMode: 'add', mathScore: 0,
+  currentMathAnswer: 0,
+  currentTableNum: 2,
+  currentTableQuizAnswer: 0,
+  currentFactIndex: 0,
+  heroName: '',
+};
+
+// ====== INIT ======
+window.onload = () => {
+  renderWordsGrid();
+  renderTableSelector();
+  renderTable(2);
+  renderTableQuiz();
+  renderFacts();
+  setWord(0);
+  generateMath();
+  showFact(0);
+};
+
+// ====== NAME ======
+function setName() {
+  const n = document.getElementById('nameInput').value.trim();
+  if (!n) return;
+  state.heroName = n;
+  document.getElementById('name-label').textContent = '🦸 Welcome, Hero!';
+  document.getElementById('heroNameDisplay').textContent = `⚡ ${n.toUpperCase()}, THE HERO! ⚡`;
+  document.getElementById('heroNameDisplay').style.display = 'block';
+  document.getElementById('nameInput').style.display = 'none';
+  document.querySelector('.name-btn').style.display = 'none';
+  celebrate();
+}
+
+// ====== TABS ======
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ====== SCORE ======
+function addStar(n = 1) {
+  state.stars += n;
+  state.correct++;
+  document.getElementById('starsCount').textContent = state.stars;
+  document.getElementById('correctCount').textContent = state.correct;
+  state.level = Math.floor(state.stars / 5) + 1;
+  document.getElementById('levelDisplay').textContent = state.level;
+  if (state.correct % 5 === 0) celebrate();
+}
+
+// ====== CELEBRATE ======
+function celebrate() {
+  const c = document.getElementById('confetti');
+  c.innerHTML = '';
+  const colors = ['#FFD700','#E8271A','#1B4FDB','#00C851','#7B2FBE','#ff6b00'];
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'conf-piece';
+    p.style.cssText = `left:${Math.random()*100}%;top:-20px;background:${colors[~~(Math.random()*colors.length)]};animation-delay:${Math.random()*1.5}s;animation-duration:${2+Math.random()}s;transform:rotate(${Math.random()*360}deg)`;
+    c.appendChild(p);
+  }
+  c.classList.add('show');
+  setTimeout(() => c.classList.remove('show'), 3000);
+}
+
+// ====== ENGLISH ======
+function setWord(idx) {
+  const w = words[idx];
+  state.currentWordIndex = idx;
+  document.getElementById('currentWord').textContent = w.word;
+  document.getElementById('wordEmoji').textContent = w.emoji;
+  document.getElementById('wordMeaning').textContent = w.meaning;
+  document.getElementById('wordSentence').textContent = w.sentence;
+  document.getElementById('spellingInput').value = '';
+  document.getElementById('spellingFeedback').className = 'feedback-box';
+
+  // letter boxes
+  const lw = document.getElementById('wordLetters');
+  lw.innerHTML = '';
+  [...w.word].forEach((ch, i) => {
+    const b = document.createElement('div');
+    b.className = 'letter-box';
+    b.textContent = ch;
+    b.style.animationDelay = (i * 0.06) + 's';
+    lw.appendChild(b);
+  });
+
+  document.querySelectorAll('.word-chip').forEach((chip, i) => {
+    chip.classList.toggle('selected', i === idx);
+  });
+}
+
+function nextWord() {
+  setWord((state.currentWordIndex + 1) % words.length);
+}
+
+function checkSpelling() {
+  const val = document.getElementById('spellingInput').value.trim().toUpperCase();
+  const correct = words[state.currentWordIndex].word.toUpperCase();
+  const fb = document.getElementById('spellingFeedback');
+  if (val === correct) {
+    fb.textContent = '🎉 AMAZING! YOU SPELLED IT RIGHT! ⭐';
+    fb.className = 'feedback-box correct';
+    addStar(2);
+    setTimeout(nextWord, 1500);
+  } else if (val === '') {
+    fb.textContent = '✏️ Type the word first!';
+    fb.className = 'feedback-box wrong';
+  } else {
+    fb.textContent = `❌ Try again! It's "${correct}"`;
+    fb.className = 'feedback-box wrong';
+  }
+}
+
+function renderWordsGrid() {
+  const g = document.getElementById('wordsGrid');
+  g.innerHTML = '';
+  words.forEach((w, i) => {
+    const d = document.createElement('div');
+    d.className = 'word-chip';
+    d.innerHTML = `<span class="wc-emoji">${w.emoji}</span><div class="wc-word">${w.word}</div><div class="wc-meaning">${w.category}</div>`;
+    d.onclick = () => setWord(i);
+    g.appendChild(d);
+  });
+}
+
+// ====== MATH ======
+function generateMath() {
+  let n1, n2, op, answer;
+  const mode = state.mathMode;
+  const lvl = Math.min(state.level, 3);
+
+  if (mode === 'sub' || (mode === 'mix' && Math.random() > 0.5)) {
+    op = '−';
+    n1 = lvl === 1 ? rand(2,10) : lvl === 2 ? rand(5,20) : rand(10,30);
+    n2 = rand(1, n1);
+    answer = n1 - n2;
+  } else {
+    op = '+';
+    n1 = lvl === 1 ? rand(1,9) : lvl === 2 ? rand(5,20) : rand(10,30);
+    n2 = lvl === 1 ? rand(1,9) : lvl === 2 ? rand(5,20) : rand(10,25);
+    answer = n1 + n2;
+  }
+
+  state.currentMathAnswer = answer;
+  document.getElementById('num1').textContent = n1;
+  document.getElementById('op').textContent = op;
+  document.getElementById('num2').textContent = n2;
+  document.getElementById('mathFeedback').className = 'feedback-box';
+
+  const opts = generateOptions(answer, 4, answer < 20 ? 3 : 6);
+  const optDiv = document.getElementById('mathOptions');
+  optDiv.innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'option-btn';
+    b.textContent = o;
+    b.onclick = () => checkMath(b, o, answer);
+    optDiv.appendChild(b);
+  });
+}
+
+function checkMath(btn, chosen, correct) {
+  const fb = document.getElementById('mathFeedback');
+  document.querySelectorAll('#mathOptions .option-btn').forEach(b => b.onclick = null);
+  if (chosen === correct) {
+    btn.classList.add('correct-ans');
+    fb.textContent = `🏆 SUPER! ${chosen} is RIGHT! +2 Stars!`;
+    fb.className = 'feedback-box correct';
+    addStar(2);
+    state.mathScore++;
+    const pct = Math.min((state.mathScore / 10) * 100, 100);
+    document.getElementById('mathProgress').style.width = pct + '%';
+    document.getElementById('mathProgressText').textContent = `${Math.min(state.mathScore, 10)} / 10 solved`;
+    setTimeout(generateMath, 1200);
+  } else {
+    btn.classList.add('wrong-ans');
+    document.querySelectorAll('#mathOptions .option-btn').forEach(b => {
+      if (parseInt(b.textContent) === correct) b.classList.add('correct-ans');
+    });
+    fb.textContent = `❌ The answer was ${correct}! Try next one!`;
+    fb.className = 'feedback-box wrong';
+    setTimeout(generateMath, 1800);
+  }
+}
+
+function setMathMode(mode) {
+  state.mathMode = mode;
+  state.mathScore = 0;
+  document.getElementById('mathProgress').style.width = '0%';
+  document.getElementById('mathProgressText').textContent = '0 / 10 solved';
+  const labels = { add:'⚡ Addition Mode!', sub:'⚡ Subtraction Mode!', mix:'⚡ Mixed Mode!' };
+  document.getElementById('mathLevel').textContent = labels[mode];
+  generateMath();
+}
+
+// ====== TABLES ======
+function renderTableSelector() {
+  const sel = document.getElementById('tableSelector');
+  sel.innerHTML = '';
+  for (let i = 1; i <= 12; i++) {
+    const b = document.createElement('button');
+    b.className = 'table-btn' + (i === 2 ? ' selected' : '');
+    b.textContent = i;
+    b.onclick = () => {
+      document.querySelectorAll('.table-btn').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      renderTable(i);
+      state.currentTableNum = i;
+      renderTableQuiz();
+    };
+    sel.appendChild(b);
+  }
+}
+
+function renderTable(n) {
+  document.getElementById('tableTitle').textContent = `Table of ${n} ✖️`;
+  const grid = document.getElementById('tableGrid');
+  grid.innerHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    const row = document.createElement('div');
+    row.className = 'table-row';
+    row.style.animationDelay = (i * 0.05) + 's';
+    row.innerHTML = `<span class="eq">${n} × ${i} =</span><span class="ans">${n * i}</span>`;
+    grid.appendChild(row);
+  }
+}
+
+function renderTableQuiz() {
+  const n = state.currentTableNum;
+  const m = rand(1, 10);
+  const answer = n * m;
+  state.currentTableQuizAnswer = answer;
+  document.getElementById('tq1').textContent = n;
+  document.getElementById('tq2').textContent = m;
+  document.getElementById('tableQuizFeedback').className = 'feedback-box';
+
+  const opts = generateOptions(answer, 4, answer < 30 ? 5 : 10);
+  const optDiv = document.getElementById('tableQuizOptions');
+  optDiv.innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'option-btn';
+    b.textContent = o;
+    b.onclick = () => checkTableQuiz(b, o, answer);
+    optDiv.appendChild(b);
+  });
+}
+
+function checkTableQuiz(btn, chosen, correct) {
+  const fb = document.getElementById('tableQuizFeedback');
+  document.querySelectorAll('#tableQuizOptions .option-btn').forEach(b => b.onclick = null);
+  if (chosen === correct) {
+    btn.classList.add('correct-ans');
+    fb.textContent = `🚗 ZOOM! ${chosen} is CORRECT! ⭐⭐`;
+    fb.className = 'feedback-box correct';
+    addStar(2);
+    setTimeout(renderTableQuiz, 1300);
+  } else {
+    btn.classList.add('wrong-ans');
+    document.querySelectorAll('#tableQuizOptions .option-btn').forEach(b => {
+      if (parseInt(b.textContent) === correct) b.classList.add('correct-ans');
+    });
+    fb.textContent = `❌ It was ${correct}! Keep trying hero!`;
+    fb.className = 'feedback-box wrong';
+    setTimeout(renderTableQuiz, 1800);
+  }
+}
+
+// ====== FACTS ======
+function showFact(idx) {
+  state.currentFactIndex = idx;
+  const f = facts[idx];
+  document.getElementById('factCategory').textContent = f.category;
+  document.getElementById('factEmoji').textContent = f.emoji;
+  document.getElementById('factText').innerHTML = f.text;
+}
+
+function nextFact() {
+  showFact((state.currentFactIndex + 1) % facts.length);
+}
+
+function randomFact() {
+  const idx = Math.floor(Math.random() * facts.length);
+  showFact(idx);
+}
+
+function renderFacts() {
+  const g = document.getElementById('factsGrid');
+  g.innerHTML = '';
+  facts.slice(0, 8).forEach((f, i) => {
+    const d = document.createElement('div');
+    d.className = 'mini-fact';
+    d.innerHTML = `<div class="mf-emoji">${f.emoji}</div><div class="mf-text">${f.text}</div>`;
+    d.onclick = () => { showFact(i); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    g.appendChild(d);
+  });
+}
+
+// ====== HELPERS ======
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function generateOptions(correct, count, spread) {
+  const opts = new Set([correct]);
+  while (opts.size < count) {
+    let v = correct + rand(-spread, spread);
+    if (v !== correct && v >= 0) opts.add(v);
+  }
+  return [...opts].sort(() => Math.random() - 0.5);
+}
+</script>
+</body>
+</html>
