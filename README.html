@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Academy README 🦸</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #FFD700;
+    --red: #ff3131;
+    --blue: #3b82f6;
+    --green: #00ff88;
+    --pink: #ff6eb4;
+    --purple: #a855f7;
+    --dark: #050510;
+    --card: #0d0d20;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark);
+    color: white;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 0% 100%, rgba(232,39,26,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(59,130,246,0.08) 0%, transparent 50%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.012) 40px,
+      rgba(255,255,255,0.012) 41px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.012) 40px,
+      rgba(255,255,255,0.012) 41px
+    );
+  }
+
+  .badge-row {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: float-badge 3s ease-in-out infinite;
+  }
+
+  .badge-gold { background: rgba(255,215,0,0.15); border: 1px solid rgba(255,215,0,0.4); color: var(--gold); }
+  .badge-red { background: rgba(255,49,49,0.15); border: 1px solid rgba(255,49,49,0.4); color: var(--red); animation-delay: 0.5s; }
+  .badge-blue { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.4); color: var(--blue); animation-delay: 1s; }
+  .badge-green { background: rgba(0,255,136,0.15); border: 1px solid rgba(0,255,136,0.4); color: var(--green); animation-delay: 1.5s; }
+
+  @keyframes float-badge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .hero-gif {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 0 80px rgba(255,215,0,0.15);
+    margin-bottom: 20px;
+    animation: glow-pulse 2s ease-in-out infinite;
+    object-fit: cover;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 0 80px rgba(255,215,0,0.1); }
+    50% { box-shadow: 0 0 60px rgba(255,215,0,0.7), 0 0 100px rgba(255,215,0,0.25); }
+  }
+
+  .hero-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(48px, 10vw, 90px);
+    letter-spacing: 5px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold) 0%, #fff 35%, var(--gold) 65%, var(--red) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(255,215,0,0.35));
+    margin-bottom: 14px;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 3vw, 22px);
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+    margin-bottom: 30px;
+    max-width: 600px;
+  }
+
+  .hero-sub span { color: var(--gold); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 3px;
+    font-family: 'Space Mono', monospace;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+  /* SECTIONS */
+  .section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+
+  /* MEME CARD */
+  .meme-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 30px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .meme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .meme-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .meme-card.gold::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .meme-card.red::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+  .meme-card.blue::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+  .meme-card.green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+  .meme-card.purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+  .meme-card.pink::before { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(30px, 6vw, 52px);
+    letter-spacing: 3px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-title.gold { color: var(--gold); }
+  .section-title.red { color: var(--red); }
+  .section-title.blue { color: var(--blue); }
+  .section-title.green { color: var(--green); }
+  .section-title.purple { color: var(--purple); }
+  .section-title.pink { color: var(--pink); }
+
+  /* SPLIT LAYOUT */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) { .split { grid-template-columns: 1fr; } }
+
+  /* GIF BOX */
+  .gif-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+
+  .gif-box .gif-emoji { animation: bounce-gif 0.8s ease-in-out infinite alternate; }
+  @keyframes bounce-gif {
+    from { transform: scale(1) rotate(-5deg); }
+    to { transform: scale(1.15) rotate(5deg); }
+  }
+
+  .gif-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+  }
+
+  /* FEATURE ROW */
+  .feature-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .feature-row:last-child { border-bottom: none; }
+
+  .feature-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    animation: wiggle 3s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    92% { transform: rotate(-8deg); }
+    96% { transform: rotate(8deg); }
+  }
+
+  .feature-content h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: white;
+  }
+
+  .feature-content p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* MEME TEXT */
+  .meme-text {
+    font-size: clamp(14px, 2.5vw, 17px);
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .meme-text strong { color: var(--gold); }
+  .meme-text .red { color: var(--red); }
+  .meme-text .blue { color: var(--blue); }
+  .meme-text .green { color: var(--green); }
+  .meme-text .purple { color: var(--purple); }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(255,215,0,0.07);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+  }
+
+  .callout.red { background: rgba(255,49,49,0.07); border-color: var(--red); border-left-color: var(--red); }
+  .callout.blue { background: rgba(59,130,246,0.07); border-color: var(--blue); border-left-color: var(--blue); }
+  .callout.green { background: rgba(0,255,136,0.07); border-color: var(--green); border-left-color: var(--green); }
+
+  /* BIG EMOJI ROW */
+  .emoji-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 35px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .emoji-row span {
+    display: inline-block;
+    animation: pop-float 2s ease-in-out infinite;
+  }
+
+  .emoji-row span:nth-child(1) { animation-delay: 0s; }
+  .emoji-row span:nth-child(2) { animation-delay: 0.2s; }
+  .emoji-row span:nth-child(3) { animation-delay: 0.4s; }
+  .emoji-row span:nth-child(4) { animation-delay: 0.6s; }
+  .emoji-row span:nth-child(5) { animation-delay: 0.8s; }
+  .emoji-row span:nth-child(6) { animation-delay: 1.0s; }
+
+  @keyframes pop-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.2); }
+  }
+
+  /* HOW TO USE */
+  .steps { counter-reset: step; }
+
+  .step-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    counter-increment: step;
+  }
+
+  .step-num {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), #ff6b00);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .step-content p { font-size: 14px; color: rgba(255,255,255,0.5); font-weight: 700; }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 500px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 18px 12px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 800; letter-spacing: 1px; }
+
+  /* BIG MEME QUOTE */
+  .meme-quote {
+    background: linear-gradient(135deg, rgba(255,49,49,0.08), rgba(255,215,0,0.06));
+    border: 1px solid rgba(255,49,49,0.2);
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .meme-quote p {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(20px, 4vw, 30px);
+    letter-spacing: 2px;
+    line-height: 1.4;
+    color: white;
+  }
+
+  .meme-quote .author {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 12px;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+
+  .footer-title {
+    font-family: 'Bangers', cursive;
+    font-size: 48px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .footer p { color: rgba(255,255,255,0.3); font-size: 13px; font-weight: 700; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+    margin: 10px 0 40px;
+  }
+
+  /* ROTATING TEXT */
+  .rotating-tag {
+    display: inline-block;
+    font-family: 'Bangers', cursive;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.3);
+    color: var(--gold);
+    margin-bottom: 20px;
+    animation: float-badge 2s ease-in-out infinite;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge-row">
+    <span class="badge badge-gold">⭐ FREE</span>
+    <span class="badge badge-red">🔥 NO BORING</span>
+    <span class="badge badge-blue">💙 MADE WITH LOVE</span>
+    <span class="badge badge-green">✅ 7 YR APPROVED</span>
+  </div>
+
+  <img class="hero-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDd0eGd4ZzRlNHhhNHo2b2ZhNm5kMTl5bWY1bzI5MWcxc3cxdnZhMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/WS6CDvvjfSMnZnNAKR/giphy.gif" alt="iron man gif" />
+
+  <div class="rotating-tag">🚀 HERO ACADEMY v1.0</div>
+  <h1 class="hero-title">HERO ACADEMY</h1>
+  <p class="hero-sub">The app your <span>7-year-old brother</span> will actually open.<br>Unlike his textbooks. 💀</p>
+
+  <div class="badge-row">
+    <span class="badge badge-gold">📚 English</span>
+    <span class="badge badge-blue">🔢 Math</span>
+    <span class="badge badge-red">✖️ Tables</span>
+    <span class="badge badge-green">🔬 Fun Facts</span>
+  </div>
+
+  <span class="scroll-hint">▼ SCROLL DOWN ▼</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="section">
+
+  <!-- WHAT IS THIS -->
+  <div class="reveal meme-card gold">
+    <div class="section-tag">// what_is_this.exe</div>
+    <h2 class="section-title gold">BRO WHAT IS THIS? 🤔</h2>
+    <div class="divider"></div>
+
+    <div class="split">
+      <div>
+        <p class="meme-text">
+          Okay so basically sister built her chote bhai a <strong>full superhero learning app</strong> because he refuses to open his actual books. 💀<br><br>
+          It's got <strong class="blue">Iron Man</strong>, <strong class="red">Thor</strong>, luxury cars, and actual knowledge hidden inside like a <strong>sneaky vegetable in a pizza</strong>. 🍕
+        </p>
+        <div class="callout">
+          🗣️ "Padh le bhai" said no 7-year-old ever. But <strong>play karo</strong>? Instantly yes.
+        </div>
+      </div>
+      <div class="gif-box">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG1laHo0aXJpMmNvYjA2M3lhZXJtM3FmNXdhZm5rcm5tenNmbHE5eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKtnuHOHHUjR38Y/giphy.gif" 
+             style="width:100%;height:100%;object-fit:cover;" alt="smart gif">
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="reveal meme-card blue">
+    <div class="section-tag">// features.json</div>
+    <h2 class="section-title blue">WHAT'S INSIDE? 👀</h2>
+    <div class="divider"></div>
+
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">150</div><div class="stat-label">ENGLISH WORDS</div></div>
+      <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">MATH PROBLEMS</div></div>
+      <div class="stat-box"><div class="stat-num">1-12</div><div class="stat-label">TIMES TABLES</div></div>
+      <div class="stat-box"><div class="stat-num">100</div><div class="stat-label">FUN FACTS</div></div>
+      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">BORING MOMENTS</div></div>
+      <div class="stat-box"><div class="stat-num">💯</div><div class="stat-label">VIBES</div></div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature-icon">📚</div>
+      <div class="feature-content">
+        <h3>ENGLISH ZONE</h3>
+        <p>18 words with emojis, meanings, and Avengers sentences. Spell it right = get stars. Spell it wrong = try again hero. No judgment (okay maybe a little 😭)</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">🏎️</div>
+      <div class="feature-content">
+        <h3>RACE CAR MATH</h3>
+        <p>Math problems dressed up as a race. Pick the right answer from 4 big buttons. Addition, Subtraction, or Mixed mode. Even the wrong answer screen is nice about it.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">✖️</div>
+      <div class="feature-content">
+        <h3>TABLES BOSS MODE</h3>
+        <p>See the full table of any number 1-12. Then immediately get quizzed on it. Pain but in a fun way. 😭</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">🔬</div>
+      <div class="feature-content">
+        <h3>FUN FACTS THAT SLAP</h3>
+        <p>Did you know lightning is 5x hotter than the Sun? Or that dolphins have names for each other? He will know. And he will annoy the whole family with it. You're welcome.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="reveal meme-card green">
+    <div class="section-tag">// how_to_open.txt</div>
+    <h2 class="section-title green">HOW TO USE (IT'S EASY, CHILL 😭)</h2>
+    <div class="divider"></div>
+
+    <div class="split">
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>DOWNLOAD THE FILE</h3>
+            <p>Download kids-learning-app.html — it's literally one single file. That's it.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>DOUBLE CLICK IT</h3>
+            <p>Opens in any browser. Chrome, Edge, Safari — doesn't matter. No install. No login. No nonsense.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>TYPE HIS NAME</h3>
+            <p>First thing it asks is his name. He types it and becomes a superhero. Instant serotonin. 🧠</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>LET HIM GO WILD</h3>
+            <p>He earns stars, levels up, gets confetti. He won't even know he's learning. That's the whole plan. 😈</p>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="gif-box">
+          <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmR4Y2RqbDk4NDkwcmpxcm1lZHlhMGl3OHBqNm10Z3c5NXZpZ3l4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QpVUMRUJGokfqXyfa1/giphy.gif"
+               style="width:100%;height:100%;object-fit:cover;" alt="kid gaming">
+        </div>
+        <div class="callout green">
+          ✅ Works on phone, tablet, laptop. No WiFi needed after it loads!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY IT WORKS -->
+  <div class="reveal meme-card red">
+    <div class="section-tag">// big_brain_time.py</div>
+    <h2 class="section-title red">WHY HE'LL ACTUALLY USE IT 🧠</h2>
+    <div class="divider"></div>
+
+    <div class="meme-quote">
+      <p>"Padhai mat karo, game khelo"<br>— him, probably, every day 😭</p>
+      <p class="author">// anonymous 7 year old, bhopal residence</p>
+    </div>
+
+    <p class="meme-text">
+      Science says kids learn better when they're <strong>having fun</strong>. (Yes we googled it, yes it's real.) <br><br>
+      This app uses <span class="red">stars + confetti</span> as rewards, <span class="blue">Avengers references</span> in every sentence, and <span class="green">luxury car energy</span> in the math section. His brain genuinely cannot tell it's studying. 🤫
+    </p>
+
+    <div class="emoji-row">
+      <span>🦸</span>
+      <span>🏎️</span>
+      <span>⭐</span>
+      <span>🧠</span>
+      <span>💡</span>
+      <span>🎉</span>
+    </div>
+
+    <div class="callout red">
+      🚨 WARNING: Side effects include knowing what "BRAVE" means, getting 8×7 right, and randomly saying "did you know lightning is hotter than the sun" at dinner.
+    </div>
+  </div>
+
+  <!-- SISTER APPRECIATION -->
+  <div class="reveal meme-card purple">
+    <div class="section-tag">// about_creator.md</div>
+    <h2 class="section-title purple">MADE BY SISTER WITH 💜</h2>
+    <div class="divider"></div>
+
+    <div class="split">
+      <div class="gif-box">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZtMTZlcXdxeHlieW53azdub2R5b3lpcG1ybWJ1YjNxNDVkaGZoMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BRuo6sLetdllPAQ/giphy.gif"
+             style="width:100%;height:100%;object-fit:cover;" alt="proud gif">
+      </div>
+      <div>
+        <p class="meme-text">
+          This entire app was built by his elder sister because she said <strong>"god mera bhai nhi padhta"</strong> and then instead of giving up she just... <strong>built a whole learning platform.</strong> 💜<br><br>
+          That's not just love. That's <span class="purple">senior developer energy</span>. Respect. 🫡
+        </p>
+        <div class="callout" style="background:rgba(168,85,247,0.07);border-color:var(--purple);border-left-color:var(--purple);">
+          💬 "Bhai ko padhana tha, toh kuch karna tha." — Sister, probably
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL MEME -->
+  <div class="reveal meme-card pink">
+    <div class="section-tag">// final_words.exe</div>
+    <h2 class="section-title pink">TLDR; (TOO LONG DIDN'T READ) 📖</h2>
+    <div class="divider"></div>
+
+    <div class="meme-quote">
+      <p>Open the .html file.<br>Type his name.<br>Watch him learn English, Math & Tables<br>while thinking he's playing a game. 😈<br><br>
+      <span style="color:var(--gold)">Genius. Absolute genius.</span></p>
+      <p class="author">// hero_academy README.md — v1.0.0</p>
+    </div>
+
+    <div class="emoji-row">
+      <span>📚</span><span>🏎️</span><span>✖️</span><span>🔬</span><span>⭐</span><span>🎉</span>
+    </div>
+
+    <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:13px;font-weight:700;margin-top:10px;">
+      No bugs were harmed in the making of this app. Probably.
+    </p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-title">HERO ACADEMY 🦸</div>
+  <p>Built with love by Sister ✨ • For the world's most stubborn 7-year-old 💛</p>
+  <br>
+  <p style="font-size:11px;font-family:'Space Mono',monospace;margin-top:8px;">hero_academy_v1.0 • made_with_claude • powered_by_sister_energy</p>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
